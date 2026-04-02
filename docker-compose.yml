@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: walletkz-postgres
+    environment:
+      POSTGRES_DB: walletkz
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - walletkz:/var/lib/postgresql/data
+
+volumes:
+  walletkz:

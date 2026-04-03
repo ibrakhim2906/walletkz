@@ -19,14 +19,14 @@ public class Wallet {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "users_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
     private CurrencyEnum currency;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal balance;
 
     @Column(nullable = false)
@@ -46,12 +46,11 @@ public class Wallet {
     @PrePersist
     void prePersist() {
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
-
 }

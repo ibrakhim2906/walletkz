@@ -41,13 +41,14 @@ public class User {
 
     @PrePersist
     void prePersist() {
-        createdAt=LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        createdAt = now;
+        updatedAt = now;
     }
 
     @PreUpdate
     void preUpdate() {
-        updatedAt=LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
-
 
 }

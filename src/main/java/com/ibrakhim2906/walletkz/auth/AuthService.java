@@ -7,6 +7,7 @@ import com.ibrakhim2906.walletkz.user.UserRepository;
 import com.ibrakhim2906.walletkz.wallet.CurrencyEnum;
 import com.ibrakhim2906.walletkz.wallet.Wallet;
 import com.ibrakhim2906.walletkz.wallet.WalletRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
+    @Transactional
     public boolean register(RegisterRequest req) {
         if (userRepo.existsByEmail(req.email())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "This email is already taken");
@@ -39,12 +41,14 @@ public class AuthService {
         }
 
         User user = User.create(req.email(), req.phone(), encoder.encode(req.password()));
-
-        userRepo.save(user);
-
         Wallet wallet = Wallet.create(user, CurrencyEnum.KZT);
 
-        walletRepo.save(wallet);
+        userRepo.saveAndFlush(user);
+        System.out.println("USER SAVED, ID = " + user.getId());
+        walletRepo.saveAndFlush(wallet);
+        System.out.println("USER SAVED, ID = " + user.getId());
+
+
 
         return true;
     }

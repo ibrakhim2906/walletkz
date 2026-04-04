@@ -9,7 +9,10 @@ import java.math.BigDecimal;
 
 public record TransferResponse (
         @NotNull String referenceId,
-        @DecimalMin(value = "0.01") @NotNull BigDecimal amount,
-        @NotNull CurrencyEnum currency,
+        @NotNull @DecimalMin(value = "0.01") BigDecimal sourceAmount,
+        @NotNull CurrencyEnum sourceCurrency,
+        @NotNull BigDecimal targetAmount,
+        @NotNull CurrencyEnum targetCurrency,
+        @NotNull BigDecimal exchangeRate,
         @NotNull TransactionStatus status
         ) { }

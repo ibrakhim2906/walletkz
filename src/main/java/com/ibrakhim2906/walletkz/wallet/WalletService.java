@@ -69,7 +69,7 @@ public class WalletService {
 
         String referenceId = ReferenceIdGenerator.generateReference();
 
-        Transaction transaction = Transaction.create(referenceId, wallet, req.amount(), TransactionType.DEPOSIT,
+        Transaction transaction = Transaction.create(referenceId, wallet, req.amount(), wallet.getCurrency(), TransactionType.DEPOSIT,
                 req.description(), TransactionStatus.COMPLETED);
 
         transactionRepo.save(transaction);

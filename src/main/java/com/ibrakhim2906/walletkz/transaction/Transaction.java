@@ -1,5 +1,6 @@
 package com.ibrakhim2906.walletkz.transaction;
 
+import com.ibrakhim2906.walletkz.wallet.CurrencyEnum;
 import com.ibrakhim2906.walletkz.wallet.Wallet;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,8 +23,12 @@ public class Transaction {
     private String referenceId;
 
     @ManyToOne
-    @JoinColumn(name = "wallet_id", nullable = false)
-    private Wallet wallet;
+    @JoinColumn(name = "source_wallet_id")
+    private Wallet sourceWallet;
+
+    @ManyToOne
+    @JoinColumn(name = "target_wallet_id")
+    private Wallet targetWallet;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
@@ -31,6 +36,10 @@ public class Transaction {
 
     @Column(nullable = false)
     private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private CurrencyEnum currency;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -48,16 +57,37 @@ public class Transaction {
     }
 
     public static Transaction create(String referenceId, Wallet wallet, BigDecimal amount,
-                                     TransactionType type, String description,
+                                     CurrencyEnum currency, TransactionType type, String description,
                                      TransactionStatus status) {
         Transaction transaction = new Transaction();
 
-        transaction.setWallet(wallet);
+        transaction.setSourceWallet(wallet);
         transaction.setAmount(amount);
         transaction.setType(type);
         transaction.setDescription(description);
         transaction.setStatus(status);
+        transaction.setReferenceId(referenceId);
+        transaction.setCurrency(currency);
 
         return transaction;
     }
+
+    public static Transaction create(String referenceId, Wallet sourceWallet, Wallet targetWallet, BigDecimal amount,
+                                     CurrencyEnum currency, TransactionType type, String description,
+                                     TransactionStatus status) {
+        Transaction transaction = new Transaction();
+
+        transaction.setSourceWallet(sourceWallet);
+        transaction.setTargetWallet(targetWallet);
+        transaction.setAmount(amount);
+        transaction.setType(type);
+        transaction.setDescription(description);
+        transaction.setStatus(status);
+        transaction.setReferenceId(referenceId);
+        transaction.setCurrency(currency);
+
+        return transaction;
+    }
+
+
 }

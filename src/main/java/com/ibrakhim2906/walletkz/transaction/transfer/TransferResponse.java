@@ -8,11 +8,11 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public record TransferResponse (
-        @NotNull String referenceId,
-        @NotNull @DecimalMin(value = "0.01") BigDecimal sourceAmount,
-        @NotNull CurrencyEnum sourceCurrency,
-        @NotNull BigDecimal targetAmount,
-        @NotNull CurrencyEnum targetCurrency,
-        @NotNull BigDecimal exchangeRate,
-        @NotNull TransactionStatus status
+        String referenceId,
+        BigDecimal sourceAmount,
+        CurrencyEnum sourceCurrency,
+        BigDecimal targetAmount,
+        CurrencyEnum targetCurrency,
+        BigDecimal exchangeRate,
+        TransactionStatus status
         ) { }

@@ -93,8 +93,8 @@ public class QrService {
         }
 
         Wallet payerWallet = walletRepo.findByUser_IdAndId(
-                req.sourceWalletId(),
-                currentUser.getId())
+                        currentUser.getId(),
+                        req.sourceWalletId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "source wallet is not found"));
 
         Wallet requesterWallet = qrPayment.getRequesterWallet();

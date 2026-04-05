@@ -9,19 +9,19 @@ import java.time.LocalDateTime;
 
 @Builder
 public record TransactionResponse (
-        @NotNull Long id,
-        @NotNull String referenceId,
-        @NotNull Long sourceWalletId,
+        Long id,
+        String referenceId,
+        Long sourceWalletId,
         Long targetWalletId,
-        @NotNull TransactionType type,
-        @NotNull BigDecimal sourceAmount,
-        @NotNull BigDecimal targetAmount,
-        @NotNull CurrencyEnum sourceCurrency,
-        @NotNull CurrencyEnum targetCurrency,
-        @NotNull BigDecimal exchangeRate,
-        @NotNull TransactionStatus status,
-        @NotNull String description,
-        @NotNull LocalDateTime createdAt
+        TransactionType type,
+        BigDecimal sourceAmount,
+        BigDecimal targetAmount,
+        CurrencyEnum sourceCurrency,
+        CurrencyEnum targetCurrency,
+        BigDecimal exchangeRate,
+        TransactionStatus status,
+        String description,
+        LocalDateTime createdAt
         ) {
 
         public static TransactionResponse toResponse(Transaction transaction) {
